@@ -8,6 +8,9 @@ public class Application {
     public static void main(String[] args) {
         final ContactManager contactManager = new ContactManager();
 
+        // should be empty
+        System.out.println(contactManager.getAllContacts());
+
         final Contact john = new Contact();
         john.setId(1001);
         john.setFirstName("John");
@@ -22,5 +25,14 @@ public class Application {
         marius.setPhone("+911111111111");
         System.out.println(contactManager.addContact(marius));
 
+        final Contact david = new Contact();
+        david.setId(1003);
+        david.setFirstName("David");
+        david.setLastName("Allen");
+        david.setPhone("+913333333333");
+        System.out.println(contactManager.addContact(david));
+
+        // should have 3 contacts
+        System.out.println(contactManager.getAllContacts());
     }
 }

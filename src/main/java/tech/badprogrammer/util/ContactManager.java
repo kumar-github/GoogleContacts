@@ -16,6 +16,10 @@ public class ContactManager {
         return result.orElseGet(null);
     }
 
+    public List<Contact> getAllContacts() {
+        return contacts;
+    }
+
     public Optional<Contact> getContactById(int id) {
         final Optional<Contact> optionalContact = contacts.stream()
                                                           .filter(contact -> contact.getId() == id)
