@@ -24,7 +24,7 @@ class ContactManagerTest {
     @Test
     void add_contact() {
         final Contact john = new Contact();
-        john.setId(1001);
+        // john.setId(1001);
         john.setFirstName("John");
         john.setLastName("Doe");
         john.setPhone("+910000000000");
