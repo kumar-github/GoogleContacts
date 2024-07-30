@@ -29,17 +29,24 @@ public class Application {
         // david.setId(1003);
         david.setFirstName("David");
         david.setLastName("Allen");
-        david.setPhone("+913333333333");
+        david.setPhone("+912222222222");
         System.out.println(contactManager.addContact(david));
 
         final Contact chris = new Contact();
         // chris.setId(1004);
         chris.setFirstName("Chris");
         chris.setLastName("Wayne");
-        chris.setPhone("+914444444444");
+        chris.setPhone("+913333333333");
         System.out.println(contactManager.addContact(chris));
 
-        // should have 4 contacts
+        final Contact bruce = new Contact();
+        // bruce.setId(1004);
+        bruce.setFirstName("Bruce");
+        bruce.setLastName("Wayne");
+        bruce.setPhone("+914444444444");
+        contactManager.addContact(bruce);
+
+        // should have 5 contacts
         System.out.println(contactManager.getAllContacts());
     }
 }
