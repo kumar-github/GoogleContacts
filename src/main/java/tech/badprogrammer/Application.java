@@ -67,5 +67,16 @@ public class Application {
         // should have 5 contacts
         LOGGER.info(contactManager.getAllContacts()
                                   .toString());
+
+        chris.setLastName("Mudry");
+        chris.setPhone("+915555555555");
+        System.out.println(contactManager.updateContact(chris));
+        LOGGER.info(contactManager.getAllContacts()
+                                  .toString());
+
+        contactManager.deleteContact(4);
+
+        LOGGER.info(contactManager.getAllContacts()
+                                  .toString());
     }
 }

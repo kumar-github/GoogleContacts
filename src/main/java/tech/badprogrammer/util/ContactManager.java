@@ -49,6 +49,31 @@ public class ContactManager {
         return result.orElseThrow();
     }
 
+    public Contact updateContact(Contact contact) {
+        if (contact.getId() == 0) {
+            throw new IllegalArgumentException("Existing contact should have ID set.");
+        }
+        final boolean isRemoved = contacts.removeIf(c -> c.getId() == contact.getId());
+        if (!isRemoved) {
+            LOGGER.log(Level.SEVERE, "Contact with id {0} does not exist.", new Object[]{ contact.getId() });
+            return null;
+        }
+        contacts.add(contact);
+        LOGGER.log(Level.INFO, "Contact with id {0} updated successfully.", new Object[]{ contact.getId() });
+        final Optional<Contact> result = getContactById(contact.getId());
+        return result.orElseThrow();
+    }
+
+    public void deleteContact(int id) {
+        final boolean isRemoved = contacts.removeIf(c -> c.getId() == id);
+        if (isRemoved) {
+            LOGGER.log(Level.INFO, "Contact with id {0} deleted successfully.", new Object[]{ id });
+        }
+        else {
+            LOGGER.log(Level.WARNING, "Contact with id {0} does not exists.", new Object[]{ id });
+        }
+    }
+
     public List<Contact> getAllContacts() {
         LOGGER.info("Returning all contacts.");
         return contacts;
