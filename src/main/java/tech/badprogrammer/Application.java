@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 
 public class Application {
 
+    private static final Logger LOGGER = Logger.getLogger(Application.class.getName());
+
     static {
         final String LOGGING_CONFIG_FILE_PROPERTY_KEY = "java.util.logging.config.file";
         final String LOGGING_CONFIG_FILE_PATH = Application.class.getClassLoader()
@@ -14,8 +16,6 @@ public class Application {
                                                                  .getFile();
         System.setProperty(LOGGING_CONFIG_FILE_PROPERTY_KEY, LOGGING_CONFIG_FILE_PATH);
     }
-
-    private static final Logger LOGGER = Logger.getLogger(Application.class.getName());
 
     public static void main(String[] args) {
         final ContactManager contactManager = ContactManager.getInstance();

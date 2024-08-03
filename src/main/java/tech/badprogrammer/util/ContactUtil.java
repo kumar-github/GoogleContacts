@@ -5,10 +5,9 @@ import java.util.logging.Logger;
 
 public class ContactUtil {
 
-    private static final Logger      LOGGER   = Logger.getLogger(ContactUtil.class.getName());
-    private static       ContactUtil INSTANCE = null;
-
+    private static final Logger        LOGGER     = Logger.getLogger(ContactUtil.class.getName());
     private static final AtomicInteger CONTACT_ID = new AtomicInteger(0);
+    private static       ContactUtil   INSTANCE   = null;
 
     private ContactUtil() {
         init();

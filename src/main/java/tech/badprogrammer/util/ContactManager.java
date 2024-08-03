@@ -16,9 +16,9 @@ public class ContactManager {
 
     private static final Logger         LOGGER        = Logger.getLogger(ContactManager.class.getName());
     private static final String         CONTACTS_FILE = "contacts.bin";
+    private static       ContactManager INSTANCE      = null;
     private final        ContactUtil    contactUtil   = ContactUtil.getInstance();
     private              List<Contact>  contacts;
-    private static       ContactManager INSTANCE      = null;
 
     private ContactManager() {
         init();
@@ -35,6 +35,18 @@ public class ContactManager {
     private void init() {
         loadContactsFromFile();
         registerContactWriterShutdownHook();
+    }
+
+    public List<Contact> getAllContacts() {
+        LOGGER.info("Returning all contacts.");
+        return contacts;
+    }
+
+    public Optional<Contact> getContactById(int id) {
+        LOGGER.log(Level.INFO, "Trying to find contact with id {0}.", new Object[]{ id });
+        return contacts.stream()
+                       .filter(contact -> contact.getId() == id)
+                       .findFirst();
     }
 
     public Contact addContact(Contact contact) {
@@ -72,18 +84,6 @@ public class ContactManager {
         else {
             LOGGER.log(Level.WARNING, "Contact with id {0} does not exists.", new Object[]{ id });
         }
-    }
-
-    public List<Contact> getAllContacts() {
-        LOGGER.info("Returning all contacts.");
-        return contacts;
-    }
-
-    public Optional<Contact> getContactById(int id) {
-        LOGGER.log(Level.INFO, "Trying to find contact with id {0}.", new Object[]{ id });
-        return contacts.stream()
-                       .filter(contact -> contact.getId() == id)
-                       .findFirst();
     }
 
     // -----------------------------------------------------------------------------------------------------------------
