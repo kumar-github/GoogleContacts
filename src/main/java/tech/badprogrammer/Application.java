@@ -5,6 +5,15 @@ import tech.badprogrammer.util.ContactManager;
 
 public class Application {
 
+    private static final String LOGGING_CONFIG_FILE_PROPERTY_KEY = "java.util.logging.config.file";
+
+    static {
+        final String LOGGING_CONFIG_FILE_PATH = Application.class.getClassLoader()
+                                                                 .getResource("logging.properties")
+                                                                 .getFile();
+        System.setProperty(LOGGING_CONFIG_FILE_PROPERTY_KEY, LOGGING_CONFIG_FILE_PATH);
+    }
+
     public static void main(String[] args) {
         final ContactManager contactManager = new ContactManager();
 

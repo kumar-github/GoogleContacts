@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ContactWritingTask implements Runnable {
@@ -27,7 +28,8 @@ public class ContactWritingTask implements Runnable {
     private void writeContactsToFile(List<Contact> contacts) {
         try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(CONTACTS_FILE))) {
             objectOutputStream.writeObject(contacts);
-            // LOGGER.info("");
+            LOGGER.log(Level.INFO, "{0} contacts successfully written to file {1}.",
+                       new Object[]{ contacts.size(), CONTACTS_FILE });
             System.out.format("%d contacts successfully written to file \"%s\"", contacts.size(), CONTACTS_FILE);
         }
         catch (IOException exception) {

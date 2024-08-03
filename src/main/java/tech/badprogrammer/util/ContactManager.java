@@ -9,9 +9,12 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ContactManager {
 
+    private static final Logger        LOGGER        = Logger.getLogger(ContactManager.class.getName());
     private static final String        CONTACTS_FILE = "contacts.bin";
     private final        ContactUtil   contactUtil   = new ContactUtil();
     private              List<Contact> contacts;
@@ -60,13 +63,15 @@ public class ContactManager {
         try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(CONTACTS_FILE))) {
             final List<Contact> contacts = (List<Contact>) objectInputStream.readObject();
             this.contacts = new ArrayList<>(contacts);
+            LOGGER.log(Level.INFO, "\"{0}\" file FOUND. Loaded contacts from file.", new Object[]{ CONTACTS_FILE });
         }
         catch (FileNotFoundException exception) {
             /*
             Seems, the contacts file does not exists. May be the user is launching the app for the first time, so
             let's create a an empty list.
              */
-            System.out.format("File \"%s\" not found. Creating empty contacts list.", CONTACTS_FILE);
+            LOGGER.log(Level.INFO, "\"{0}\" file NOT FOUND. Creating empty contacts list.",
+                       new Object[]{ CONTACTS_FILE });
             this.contacts = new ArrayList<>();
         }
         catch (IOException | ClassNotFoundException exception) {
