@@ -54,7 +54,7 @@ public class ContactManager {
     // -----------------------------------------------------------------------------------------------------------------
 
     private void registerContactWriterShutdownHook() {
-        final Thread contactWriter = new Thread(new ContactWritingTask(getAllContacts()));
+        final Thread contactWriter = new Thread(new ContactWritingTask(this));
         Runtime.getRuntime()
                .addShutdownHook(contactWriter);
     }

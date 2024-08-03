@@ -11,18 +11,17 @@ import java.util.logging.Logger;
 
 public class ContactWritingTask implements Runnable {
 
-    private static final Logger        LOGGER        = Logger.getLogger(ContactWritingTask.class.getName());
-    private static final String        CONTACTS_FILE = "contacts.bin";
-    private final        List<Contact> contacts;
+    private static final Logger         LOGGER        = Logger.getLogger(ContactWritingTask.class.getName());
+    private static final String         CONTACTS_FILE = "contacts.bin";
+    private final        ContactManager contactManager;
 
-    public ContactWritingTask(List<Contact> contacts) {
-        // this.contacts = List.copyOf(contacts);
-        this.contacts = contacts;
+    public ContactWritingTask(ContactManager contactManager) {
+        this.contactManager = contactManager;
     }
 
     @Override
     public void run() {
-        writeContactsToFile(this.contacts);
+        writeContactsToFile(contactManager.getAllContacts());
     }
 
     private void writeContactsToFile(List<Contact> contacts) {
