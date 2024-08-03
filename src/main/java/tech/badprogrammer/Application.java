@@ -15,7 +15,7 @@ public class Application {
     }
 
     public static void main(String[] args) {
-        final ContactManager contactManager = new ContactManager();
+        final ContactManager contactManager = ContactManager.getInstance();
 
         // should be empty
         System.out.println(contactManager.getAllContacts());

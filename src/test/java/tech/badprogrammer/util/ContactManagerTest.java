@@ -18,7 +18,7 @@ class ContactManagerTest {
 
     @BeforeEach
     void setUp() {
-        contactManager = new ContactManager();
+        contactManager = ContactManager.getInstance();
     }
 
     @Test

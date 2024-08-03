@@ -1,8 +1,11 @@
 package tech.badprogrammer.util;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Logger;
 
 public class ContactUtil {
+
+    private static final Logger LOGGER = Logger.getLogger(ContactUtil.class.getName());
 
     private static final AtomicInteger CONTACT_ID = new AtomicInteger(0);
 
@@ -15,10 +18,12 @@ public class ContactUtil {
     }
 
     private void initializeContactId() {
+        LOGGER.info("Contact ID initialized to 0.");
         CONTACT_ID.set(0);
     }
 
     public int generateNewContactId() {
+        LOGGER.info("New Contact ID generated.");
         return CONTACT_ID.incrementAndGet();
     }
 

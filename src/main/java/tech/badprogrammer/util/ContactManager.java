@@ -14,13 +14,22 @@ import java.util.logging.Logger;
 
 public class ContactManager {
 
-    private static final Logger        LOGGER        = Logger.getLogger(ContactManager.class.getName());
-    private static final String        CONTACTS_FILE = "contacts.bin";
-    private final        ContactUtil   contactUtil   = new ContactUtil();
-    private              List<Contact> contacts;
+    private static final Logger         LOGGER        = Logger.getLogger(ContactManager.class.getName());
+    private static final String         CONTACTS_FILE = "contacts.bin";
+    private final        ContactUtil    contactUtil   = new ContactUtil();
+    private              List<Contact>  contacts;
+    private static       ContactManager INSTANCE      = null;
 
-    public ContactManager() {
+    private ContactManager() {
         init();
+    }
+
+    public static ContactManager getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new ContactManager();
+            LOGGER.log(Level.INFO, "New ContactManager instance {0} created.", new Object[]{ INSTANCE });
+        }
+        return INSTANCE;
     }
 
     private void init() {
@@ -35,15 +44,18 @@ public class ContactManager {
         int id = contactUtil.generateNewContactId();
         contact.setId(id);
         contacts.add(contact);
+        LOGGER.log(Level.INFO, "New Contact with id {0} created successfully.", new Object[]{ id });
         final Optional<Contact> result = getContactById(id);
         return result.orElseThrow();
     }
 
     public List<Contact> getAllContacts() {
+        LOGGER.info("Returning all contacts.");
         return contacts;
     }
 
     public Optional<Contact> getContactById(int id) {
+        LOGGER.log(Level.INFO, "Trying to find contact with id {0}.", new Object[]{ id });
         return contacts.stream()
                        .filter(contact -> contact.getId() == id)
                        .findFirst();
@@ -57,6 +69,7 @@ public class ContactManager {
         final Thread contactWriter = new Thread(new ContactWritingTask(this));
         Runtime.getRuntime()
                .addShutdownHook(contactWriter);
+        LOGGER.info("Contact Writer Shutdown Hook registered successfully.");
     }
 
     private void loadContactsFromFile() {
