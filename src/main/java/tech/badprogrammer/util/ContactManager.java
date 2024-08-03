@@ -16,7 +16,7 @@ public class ContactManager {
 
     private static final Logger         LOGGER        = Logger.getLogger(ContactManager.class.getName());
     private static final String         CONTACTS_FILE = "contacts.bin";
-    private final        ContactUtil    contactUtil   = new ContactUtil();
+    private final        ContactUtil    contactUtil   = ContactUtil.getInstance();
     private              List<Contact>  contacts;
     private static       ContactManager INSTANCE      = null;
 

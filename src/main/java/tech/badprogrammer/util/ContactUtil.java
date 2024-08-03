@@ -5,12 +5,20 @@ import java.util.logging.Logger;
 
 public class ContactUtil {
 
-    private static final Logger LOGGER = Logger.getLogger(ContactUtil.class.getName());
+    private static final Logger      LOGGER   = Logger.getLogger(ContactUtil.class.getName());
+    private static       ContactUtil INSTANCE = null;
 
     private static final AtomicInteger CONTACT_ID = new AtomicInteger(0);
 
-    public ContactUtil() {
+    private ContactUtil() {
         init();
+    }
+
+    public static ContactUtil getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new ContactUtil();
+        }
+        return INSTANCE;
     }
 
     private void init() {
@@ -23,7 +31,7 @@ public class ContactUtil {
     }
 
     public int generateNewContactId() {
-        LOGGER.info("New Contact ID generated.");
+        LOGGER.fine("New Contact ID generated.");
         return CONTACT_ID.incrementAndGet();
     }
 
