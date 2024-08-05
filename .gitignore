@@ -39,6 +39,8 @@ build/
 ### Mac OS ###
 .DS_Store
 
-### contacts file ###
-/contacts.bin
-/app0.log
+### contacts files ###
+*.bin
+
+### log files ###
+*.log

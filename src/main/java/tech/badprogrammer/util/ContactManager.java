@@ -14,27 +14,30 @@ import java.util.logging.Logger;
 
 public class ContactManager {
 
-    private static final Logger         LOGGER        = Logger.getLogger(ContactManager.class.getName());
-    private static final String         CONTACTS_FILE = "contacts.bin";
-    private static       ContactManager INSTANCE      = null;
-    private final        ContactUtil    contactUtil   = ContactUtil.getInstance();
+    private static final Logger         LOGGER                = Logger.getLogger(ContactManager.class.getName());
+    private static final String         DEFAULT_CONTACTS_FILE = "src/main/resources/contacts.bin";
+    private static final String         FORWARD_SLASH         = "/";
+    private static       ContactManager INSTANCE              = null;
+    private final        ContactUtil    contactUtil           = ContactUtil.getInstance();
+    private              String         contactsFilePath;
     private              List<Contact>  contacts;
 
-    private ContactManager() {
-        init();
+    private ContactManager(String contactsFilePath) {
+        setContactsFilePath(contactsFilePath);
+        registerContactWriterShutdownHook();
+        loadContactsFromFile(contactsFilePath);
     }
 
     public static ContactManager getInstance() {
+        return getInstance(DEFAULT_CONTACTS_FILE);
+    }
+
+    public static ContactManager getInstance(String filePath) {
         if (INSTANCE == null) {
-            INSTANCE = new ContactManager();
+            INSTANCE = new ContactManager(filePath);
             LOGGER.log(Level.INFO, "New ContactManager instance {0} created.", new Object[]{ INSTANCE });
         }
         return INSTANCE;
-    }
-
-    private void init() {
-        loadContactsFromFile();
-        registerContactWriterShutdownHook();
     }
 
     public List<Contact> getAllContacts() {
@@ -86,6 +89,11 @@ public class ContactManager {
         }
     }
 
+    public void deleteAllContacts() {
+        contacts.clear();
+        LOGGER.info("All contacts deleted successfully.");
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
@@ -97,23 +105,37 @@ public class ContactManager {
         LOGGER.info("Contact Writer Shutdown Hook registered successfully.");
     }
 
-    private void loadContactsFromFile() {
-        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(CONTACTS_FILE))) {
+    private void loadContactsFromFile(final String contactsFile) {
+        final String contactsFileName = extractFileNameFromPath(contactsFile);
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(contactsFile))) {
             final List<Contact> contacts = (List<Contact>) objectInputStream.readObject();
             this.contacts = new ArrayList<>(contacts);
-            LOGGER.log(Level.INFO, "\"{0}\" file FOUND. Loaded contacts from file.", new Object[]{ CONTACTS_FILE });
+            LOGGER.log(Level.INFO, "\"{0}\" file FOUND. Loaded contacts from file.", new Object[]{ contactsFileName });
         }
         catch (FileNotFoundException exception) {
             /*
-            Seems, the contacts file does not exists. May be the user is launching the app for the first time, so
-            let's create a an empty list.
-             */
+             The contacts file does not exists. May be the app is launched for the first time, so let's
+             create an empty list.
+            */
             LOGGER.log(Level.INFO, "\"{0}\" file NOT FOUND. Creating empty contacts list.",
-                       new Object[]{ CONTACTS_FILE });
+                       new Object[]{ contactsFileName });
             this.contacts = new ArrayList<>();
         }
         catch (IOException | ClassNotFoundException exception) {
             throw new RuntimeException(exception);
         }
+    }
+
+    private static String extractFileNameFromPath(String filePath) {
+        final String[] tokens = filePath.split(FORWARD_SLASH);
+        return tokens[tokens.length - 1];
+    }
+
+    private void setContactsFilePath(String contactsFilePath) {
+        this.contactsFilePath = contactsFilePath;
+    }
+
+    public String getContactsFilePath() {
+        return contactsFilePath;
     }
 }

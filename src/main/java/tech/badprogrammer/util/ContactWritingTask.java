@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 public class ContactWritingTask implements Runnable {
 
     private static final Logger         LOGGER        = Logger.getLogger(ContactWritingTask.class.getName());
-    private static final String         CONTACTS_FILE = "contacts.bin";
+    private static final String         FORWARD_SLASH = "/";
     private final        ContactManager contactManager;
 
     public ContactWritingTask(ContactManager contactManager) {
@@ -25,14 +25,21 @@ public class ContactWritingTask implements Runnable {
     }
 
     private void writeContactsToFile(List<Contact> contacts) {
-        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(CONTACTS_FILE))) {
+        final String contactsFilePath = contactManager.getContactsFilePath();
+        final String contactsFileName = extractFileNameFromPath(contactsFilePath);
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(contactsFilePath))) {
             objectOutputStream.writeObject(contacts);
             LOGGER.log(Level.INFO, "{0} contacts successfully written to file {1}.",
-                       new Object[]{ contacts.size(), CONTACTS_FILE });
-            System.out.format("%d contacts successfully written to file \"%s\"", contacts.size(), CONTACTS_FILE);
+                       new Object[]{ contacts.size(), contactsFileName });
+            System.out.format("%d contacts successfully written to file \"%s\"", contacts.size(), contactsFileName);
         }
         catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+    }
+
+    private static String extractFileNameFromPath(String filePath) {
+        final String[] tokens = filePath.split(FORWARD_SLASH);
+        return tokens[tokens.length - 1];
     }
 }
