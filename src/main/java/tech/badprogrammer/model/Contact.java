@@ -8,6 +8,7 @@ public class Contact implements Serializable {
     private String firstName;
     private String lastName;
     private String phone;
+    private String label;
 
     public Contact() {
     }
@@ -44,8 +45,16 @@ public class Contact implements Serializable {
         this.phone = phone;
     }
 
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(final String label) {
+        this.label = label;
+    }
+
     @Override
     public String toString() {
-        return String.format("%d, %s, %s, %s", id, firstName, lastName, phone);
+        return String.format("%d, %s, %s, %s %s", id, firstName, lastName, phone, label);
     }
 }

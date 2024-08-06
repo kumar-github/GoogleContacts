@@ -21,42 +21,43 @@ public class Application {
                                   .toString());
 
         final Contact john = new Contact();
-        // john.setId(1001);
         john.setFirstName("John");
         john.setLastName("Doe");
         john.setPhone("+910000000000");
+        john.setLabel("Work");
+
         LOGGER.info(contactManager.addContact(john)
                                   .toString());
 
         final Contact marius = new Contact();
-        // marius.setId(1002);
         marius.setFirstName("Marius");
         marius.setLastName("Filip");
         marius.setPhone("+911111111111");
+        marius.setLabel("Friends");
         LOGGER.info(contactManager.addContact(marius)
                                   .toString());
 
         final Contact david = new Contact();
-        // david.setId(1003);
         david.setFirstName("David");
         david.setLastName("Allen");
         david.setPhone("+912222222222");
+        david.setLabel("Gym");
         LOGGER.info(contactManager.addContact(david)
                                   .toString());
 
         final Contact chris = new Contact();
-        // chris.setId(1004);
         chris.setFirstName("Chris");
         chris.setLastName("Wayne");
         chris.setPhone("+913333333333");
+        chris.setLabel("Work");
         LOGGER.info(contactManager.addContact(chris)
                                   .toString());
 
         final Contact bruce = new Contact();
-        // bruce.setId(1004);
         bruce.setFirstName("Bruce");
         bruce.setLastName("Wayne");
         bruce.setPhone("+914444444444");
+        bruce.setLabel("Gym");
         LOGGER.info(contactManager.addContact(bruce)
                                   .toString());
 
@@ -66,6 +67,7 @@ public class Application {
 
         chris.setLastName("Mudry");
         chris.setPhone("+915555555555");
+        chris.setLabel("Gym");
         System.out.println(contactManager.updateContact(chris));
         LOGGER.info(contactManager.getAllContacts()
                                   .toString());
