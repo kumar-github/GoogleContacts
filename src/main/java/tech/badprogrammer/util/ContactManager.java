@@ -2,23 +2,34 @@ package tech.badprogrammer.util;
 
 import tech.badprogrammer.model.Contact;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 public class ContactManager {
 
-    private static final Logger         LOGGER                = Logger.getLogger(ContactManager.class.getName());
-    private static final String         DEFAULT_CONTACTS_FILE = "src/main/resources/contacts.bin";
-    private static final String         FORWARD_SLASH         = "/";
-    private static       ContactManager INSTANCE              = null;
-    private final        ContactUtil    contactUtil           = ContactUtil.getInstance();
+    private static final Logger         LOGGER                      = Logger.getLogger(ContactManager.class.getName());
+    private static final String         DEFAULT_CONTACTS_FILE       = "src/main/resources/contacts.bin";
+    private static final String         DEFAULT_PROFILE_PICS_FOLDER = "src/main/resources/profilepics";
+    private static final String         FORWARD_SLASH               = "/";
+    private static final String         DOT                         = ".";
+    private static final int            ZERO                        = 0;
+    private static       ContactManager INSTANCE                    = null;
+    private final        ContactUtil    contactUtil                 = ContactUtil.getInstance();
     private              String         contactsFilePath;
     private              List<Contact>  contacts;
 
@@ -58,8 +69,16 @@ public class ContactManager {
         }
         int id = contactUtil.generateNewContactId();
         contact.setId(id);
+
+        final String processedProfilePicturePath = createProfilePicture(contact);
+        contact.setProcessedProfilePicture(processedProfilePicturePath);
+
+        final LocalDate processedBirthday = processBirthdayDate(contact);
+        contact.setProcessedBirthday(processedBirthday);
+
         contacts.add(contact);
         LOGGER.log(Level.INFO, "New Contact with id {0} created successfully.", new Object[]{ id });
+
         final Optional<Contact> result = getContactById(id);
         return result.orElseThrow();
     }
@@ -131,11 +150,79 @@ public class ContactManager {
         return tokens[tokens.length - 1];
     }
 
+    private static String extractExtension(String fileName) {
+        final String[] tokens = fileName.split(Pattern.quote(DOT));
+        return tokens[tokens.length - 1];
+    }
+
     private void setContactsFilePath(String contactsFilePath) {
         this.contactsFilePath = contactsFilePath;
     }
 
     public String getContactsFilePath() {
         return contactsFilePath;
+    }
+
+    private String createProfilePicture(Contact contact) {
+        if (!profilePictureAvailable(contact)) {
+            return null;
+        }
+        final File sourceProfilePicFile = new File(contact.getProfilePicture());
+        if (!sourceProfilePicFile.exists()) {
+            throw new IllegalArgumentException("Profile pic file does not exist.");
+        }
+        final byte[] bytes       = readProfilePictureFile(sourceProfilePicFile);
+        String       newFileName = generateProfilePictureFileName(contact);
+        writeProfilePicture(newFileName, bytes);
+        Path profilePicturePath = Path.of(DEFAULT_PROFILE_PICS_FOLDER, newFileName);
+        return profilePicturePath.toString();
+    }
+
+    private byte[] readProfilePictureFile(final File profilePicFile) {
+        try (FileInputStream fileInputStream = new FileInputStream(profilePicFile)) {
+            return fileInputStream.readAllBytes();
+        }
+        catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    private void writeProfilePicture(final String newFileName, final byte[] profilePictureBytes) {
+        String profilePictureFile = Path.of(DEFAULT_PROFILE_PICS_FOLDER, newFileName)
+                                        .toString();
+        try (FileOutputStream fileOutputStream = new FileOutputStream(profilePictureFile)) {
+            fileOutputStream.write(profilePictureBytes);
+        }
+        catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    private static String generateProfilePictureFileName(Contact contact) {
+        final String profilePicturePath = contact.getProfilePicture();
+        String       extension          = extractExtension(extractFileNameFromPath(profilePicturePath));
+        final String newFileName        = contact.getId() + DOT + extension;
+        return newFileName;
+    }
+
+    private LocalDate processBirthdayDate(Contact contact) {
+        if (!birthdayAvailable(contact)) {
+            return null;
+        }
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder().appendPattern("[MM-dd-uuuu][MM-dd]")
+                                                                    .parseDefaulting(ChronoField.YEAR, ZERO)
+                                                                    .toFormatter();
+        final LocalDate processedBirthday = LocalDate.parse(contact.getBirthday(), formatter);
+        return processedBirthday;
+    }
+
+    private boolean profilePictureAvailable(Contact contact) {
+        return contact.getProfilePicture() != null && !contact.getProfilePicture()
+                                                              .isBlank();
+    }
+
+    private boolean birthdayAvailable(Contact contact) {
+        return contact.getBirthday() != null && !contact.getBirthday()
+                                                        .isBlank();
     }
 }

@@ -15,6 +15,7 @@ public class Application {
 
     public static void main(String[] args) {
         final ContactManager contactManager = ContactManager.getInstance();
+        Contact              result;
 
         // should be empty
         LOGGER.info(contactManager.getAllContacts()
@@ -25,33 +26,60 @@ public class Application {
         john.setLastName("Doe");
         john.setPhone("+910000000000");
         john.setLabel("Work");
-
-        LOGGER.info(contactManager.addContact(john)
-                                  .toString());
+        john.setEmail("john@doe.com");
+        john.setWebsite("www.johndoe.com");
+        john.setNotes("This is a note");
+        john.setProfilePicture("/Users/kumar/delete-today/john-profile-pic.jpg");
+        john.setBirthday("03-25-1980");
+        result = contactManager.addContact(john);
+        LOGGER.info(result.toString());
+        LOGGER.info(result.getBirthday());
+        LOGGER.info(result.getProcessedBirthday()
+                          .toString());
 
         final Contact marius = new Contact();
         marius.setFirstName("Marius");
         marius.setLastName("Filip");
         marius.setPhone("+911111111111");
         marius.setLabel("Friends");
-        LOGGER.info(contactManager.addContact(marius)
-                                  .toString());
+        marius.setEmail("marius@filip.com");
+        marius.setWebsite("www.mariusfilip.com");
+        marius.setNotes("This is a note");
+        marius.setProfilePicture("/Users/kumar/delete-today/marius-profile-pic.jpg");
+        marius.setBirthday("04-15-1970");
+        result = contactManager.addContact(marius);
+        LOGGER.info(result.toString());
+        LOGGER.info(result.getBirthday());
+        LOGGER.info(result.getProcessedBirthday()
+                          .toString());
 
         final Contact david = new Contact();
         david.setFirstName("David");
         david.setLastName("Allen");
         david.setPhone("+912222222222");
         david.setLabel("Gym");
-        LOGGER.info(contactManager.addContact(david)
-                                  .toString());
+        david.setEmail("david@allen.com");
+        david.setWebsite("www.davidallen.com");
+        david.setNotes("This is a note");
+        david.setProfilePicture("/Users/kumar/delete-today/david-profile-pic.jpeg");
+        david.setBirthday("12-31");
+        result = contactManager.addContact(david);
+        LOGGER.info(result.toString());
+        LOGGER.info(result.getBirthday());
+        LOGGER.info(result.getProcessedBirthday()
+                          .toString());
 
         final Contact chris = new Contact();
         chris.setFirstName("Chris");
         chris.setLastName("Wayne");
         chris.setPhone("+913333333333");
         chris.setLabel("Work");
-        LOGGER.info(contactManager.addContact(chris)
-                                  .toString());
+        chris.setBirthday("01-29");
+        result = contactManager.addContact(chris);
+        LOGGER.info(result.toString());
+        LOGGER.info(result.getBirthday());
+        LOGGER.info(result.getProcessedBirthday()
+                          .toString());
 
         final Contact bruce = new Contact();
         bruce.setFirstName("Bruce");

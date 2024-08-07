@@ -44,3 +44,6 @@ build/
 
 ### log files ###
 *.log
+/src/main/resources/profilepics/*.jpg
+/src/main/resources/profilepics/*.jpeg
+/src/main/resources/profilepics/*.png
