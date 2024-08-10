@@ -1,5 +1,6 @@
 package tech.badprogrammer.util;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -180,7 +181,7 @@ class ContactManagerTest {
         final Contact result = new Contact();
         result.setFirstName(firstName);
         result.setLastName(lastName);
-        result.setPhone(phone);
+        result.setPhone(ImmutablePair.of(phone, "Mobile"));
         return result;
     }
 

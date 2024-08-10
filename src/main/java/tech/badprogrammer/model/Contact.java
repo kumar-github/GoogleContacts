@@ -1,18 +1,20 @@
 package tech.badprogrammer.model;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Contact implements Serializable {
 
-    private int    id;
-    private String firstName;
-    private String lastName;
-    private String phone;
-    private String label;
-    private String email;
-    private String website;
-    private String notes;
+    private int                  id;
+    private String               firstName;
+    private String               lastName;
+    private Pair<String, String> phone;
+    private String               label;
+    private String               email;
+    private String               website;
+    private String               notes;
 
     private String profilePicture;
     private String processedProfilePicture;
@@ -59,11 +61,11 @@ public class Contact implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getPhone() {
+    public Pair<String, String> getPhone() {
         return phone;
     }
 
-    public void setPhone(final String phone) {
+    public void setPhone(final Pair<String, String> phone) {
         this.phone = phone;
     }
 
