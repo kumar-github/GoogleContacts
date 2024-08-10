@@ -30,6 +30,8 @@ public class Contact implements Serializable {
     private String company;
     private String jobTitle;
 
+    private String customField;
+
     public Contact() {
     }
 
@@ -167,6 +169,14 @@ public class Contact implements Serializable {
 
     public void setJobTitle(final String jobTitle) {
         this.jobTitle = jobTitle;
+    }
+
+    public String getCustomField() {
+        return customField;
+    }
+
+    public void setCustomField(final String customField) {
+        this.customField = customField;
     }
 
     @Override

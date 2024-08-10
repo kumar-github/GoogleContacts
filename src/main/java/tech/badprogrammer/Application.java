@@ -35,6 +35,7 @@ public class Application {
         john.setSignificantDate("03-25-1980");
         john.setCompany("Amphora");
         john.setJobTitle("Software Engineer");
+        john.setCustomField("Some custom value");
 
         final Address johnAddress = new Address();
         johnAddress.setStreet("John's Street");
@@ -67,6 +68,7 @@ public class Application {
         marius.setSignificantDate("04-15-1970");
         marius.setCompany("HCL");
         marius.setJobTitle("Senior Software Engineer");
+        marius.setCustomField("Some other custom value");
 
         final Address mariusAddress = new Address();
         mariusAddress.setStreet("Marius's Street");
@@ -99,6 +101,7 @@ public class Application {
         david.setSignificantDate("12-31");
         david.setCompany("Microsoft");
         david.setJobTitle("Senior Technical Architect");
+        david.setCustomField("Nothing");
 
         result = contactManager.addContact(david);
 
