@@ -11,8 +11,6 @@ import java.io.ObjectInputStream;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +25,6 @@ public class ContactManager {
     private static final String         DEFAULT_PROFILE_PICS_FOLDER = "src/main/resources/profilepics";
     private static final String         FORWARD_SLASH               = "/";
     private static final String         DOT                         = ".";
-    private static final int            ZERO                        = 0;
     private static       ContactManager INSTANCE                    = null;
     private final        ContactUtil    contactUtil                 = ContactUtil.getInstance();
     private final        AddressUtil    addressUtil                 = AddressUtil.getInstance();
@@ -77,6 +74,9 @@ public class ContactManager {
 
         final LocalDate processedBirthday = processBirthdayDate(contact);
         contact.setProcessedBirthday(processedBirthday);
+
+        final LocalDate processedSignificantDate = processSignificantDate(contact);
+        contact.setProcessedSignificantDate(processedSignificantDate);
 
         if (addressAvailable(contact)) {
             final int addressId = addressUtil.generateNewAddressId();
@@ -217,11 +217,18 @@ public class ContactManager {
         if (!birthdayAvailable(contact)) {
             return null;
         }
-        DateTimeFormatter formatter = new DateTimeFormatterBuilder().appendPattern("[MM-dd-uuuu][MM-dd]")
-                                                                    .parseDefaulting(ChronoField.YEAR, ZERO)
-                                                                    .toFormatter();
-        final LocalDate processedBirthday = LocalDate.parse(contact.getBirthday(), formatter);
+        final DateTimeFormatter formatter         = contactUtil.dateWithOrWithoutYearFormatter();
+        final LocalDate         processedBirthday = LocalDate.parse(contact.getBirthday(), formatter);
         return processedBirthday;
+    }
+
+    private LocalDate processSignificantDate(final Contact contact) {
+        if (!significantDateAvailable(contact)) {
+            return null;
+        }
+        final DateTimeFormatter formatter                = contactUtil.dateWithOrWithoutYearFormatter();
+        final LocalDate         processedSignificantDate = LocalDate.parse(contact.getSignificantDate(), formatter);
+        return processedSignificantDate;
     }
 
     private boolean profilePictureAvailable(Contact contact) {
@@ -236,5 +243,10 @@ public class ContactManager {
 
     private boolean addressAvailable(final Contact contact) {
         return contact.getAddress() != null;
+    }
+
+    private boolean significantDateAvailable(final Contact contact) {
+        return contact.getSignificantDate() != null && !contact.getSignificantDate()
+                                                               .isBlank();
     }
 }

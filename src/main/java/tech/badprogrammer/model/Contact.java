@@ -5,21 +5,27 @@ import java.time.LocalDate;
 
 public class Contact implements Serializable {
 
-    private int       id;
-    private String    firstName;
-    private String    lastName;
-    private String    phone;
-    private String    label;
-    private String    email;
-    private String    website;
-    private String    notes;
-    private String    profilePicture;
+    private int    id;
+    private String firstName;
+    private String lastName;
+    private String phone;
+    private String label;
+    private String email;
+    private String website;
+    private String notes;
+
+    private String profilePicture;
+    private String processedProfilePicture;
+
     // MM-dd or MM-dd-yyyy
     private String    birthday;
-    private String    processedProfilePicture;
     // MM-dd-yyyy
     private LocalDate processedBirthday;
-    private Address   address;
+
+    private Address address;
+
+    private String    significantDate;
+    private LocalDate processedSignificantDate;
 
     public Contact() {
     }
@@ -96,20 +102,20 @@ public class Contact implements Serializable {
         this.profilePicture = profilePicture;
     }
 
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(final String birthday) {
-        this.birthday = birthday;
-    }
-
     public String getProcessedProfilePicture() {
         return processedProfilePicture;
     }
 
     public void setProcessedProfilePicture(final String processedProfilePicture) {
         this.processedProfilePicture = processedProfilePicture;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(final String birthday) {
+        this.birthday = birthday;
     }
 
     public LocalDate getProcessedBirthday() {
@@ -126,6 +132,22 @@ public class Contact implements Serializable {
 
     public void setAddress(final Address address) {
         this.address = address;
+    }
+
+    public String getSignificantDate() {
+        return significantDate;
+    }
+
+    public void setSignificantDate(final String significantDate) {
+        this.significantDate = significantDate;
+    }
+
+    public LocalDate getProcessedSignificantDate() {
+        return processedSignificantDate;
+    }
+
+    public void setProcessedSignificantDate(final LocalDate processedSignificantDate) {
+        this.processedSignificantDate = processedSignificantDate;
     }
 
     @Override

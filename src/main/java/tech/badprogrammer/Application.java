@@ -32,6 +32,7 @@ public class Application {
         john.setNotes("This is a note");
         john.setProfilePicture("/Users/kumar/delete-today/john-profile-pic.jpg");
         john.setBirthday("03-25-1980");
+        john.setSignificantDate("03-25-1980");
 
         final Address johnAddress = new Address();
         johnAddress.setStreet("John's Street");
@@ -47,6 +48,9 @@ public class Application {
         LOGGER.info(result.getBirthday());
         LOGGER.info(result.getProcessedBirthday()
                           .toString());
+        LOGGER.info(result.getSignificantDate());
+        LOGGER.info(result.getProcessedSignificantDate()
+                          .toString());
 
         final Contact marius = new Contact();
         marius.setFirstName("Marius");
@@ -58,6 +62,7 @@ public class Application {
         marius.setNotes("This is a note");
         marius.setProfilePicture("/Users/kumar/delete-today/marius-profile-pic.jpg");
         marius.setBirthday("04-15-1970");
+        marius.setSignificantDate("04-15-1970");
 
         final Address mariusAddress = new Address();
         mariusAddress.setStreet("Marius's Street");
@@ -73,6 +78,9 @@ public class Application {
         LOGGER.info(result.getBirthday());
         LOGGER.info(result.getProcessedBirthday()
                           .toString());
+        LOGGER.info(result.getSignificantDate());
+        LOGGER.info(result.getProcessedSignificantDate()
+                          .toString());
 
         final Contact david = new Contact();
         david.setFirstName("David");
@@ -84,10 +92,14 @@ public class Application {
         david.setNotes("This is a note");
         david.setProfilePicture("/Users/kumar/delete-today/david-profile-pic.jpeg");
         david.setBirthday("12-31");
+        david.setSignificantDate("12-31");
         result = contactManager.addContact(david);
         LOGGER.info(result.toString());
         LOGGER.info(result.getBirthday());
         LOGGER.info(result.getProcessedBirthday()
+                          .toString());
+        LOGGER.info(result.getSignificantDate());
+        LOGGER.info(result.getProcessedSignificantDate()
                           .toString());
 
         final Contact chris = new Contact();
@@ -96,10 +108,14 @@ public class Application {
         chris.setPhone("+913333333333");
         chris.setLabel("Work");
         chris.setBirthday("01-29");
+        chris.setSignificantDate("01-29");
         result = contactManager.addContact(chris);
         LOGGER.info(result.toString());
         LOGGER.info(result.getBirthday());
         LOGGER.info(result.getProcessedBirthday()
+                          .toString());
+        LOGGER.info(result.getSignificantDate());
+        LOGGER.info(result.getProcessedSignificantDate()
                           .toString());
 
         final Contact bruce = new Contact();
