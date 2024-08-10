@@ -27,6 +27,9 @@ public class Contact implements Serializable {
     private String    significantDate;
     private LocalDate processedSignificantDate;
 
+    private String company;
+    private String jobTitle;
+
     public Contact() {
     }
 
@@ -148,6 +151,22 @@ public class Contact implements Serializable {
 
     public void setProcessedSignificantDate(final LocalDate processedSignificantDate) {
         this.processedSignificantDate = processedSignificantDate;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(final String company) {
+        this.company = company;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(final String jobTitle) {
+        this.jobTitle = jobTitle;
     }
 
     @Override

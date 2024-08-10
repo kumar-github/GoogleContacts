@@ -33,6 +33,8 @@ public class Application {
         john.setProfilePicture("/Users/kumar/delete-today/john-profile-pic.jpg");
         john.setBirthday("03-25-1980");
         john.setSignificantDate("03-25-1980");
+        john.setCompany("Amphora");
+        john.setJobTitle("Software Engineer");
 
         final Address johnAddress = new Address();
         johnAddress.setStreet("John's Street");
@@ -63,6 +65,8 @@ public class Application {
         marius.setProfilePicture("/Users/kumar/delete-today/marius-profile-pic.jpg");
         marius.setBirthday("04-15-1970");
         marius.setSignificantDate("04-15-1970");
+        marius.setCompany("HCL");
+        marius.setJobTitle("Senior Software Engineer");
 
         final Address mariusAddress = new Address();
         mariusAddress.setStreet("Marius's Street");
@@ -93,7 +97,11 @@ public class Application {
         david.setProfilePicture("/Users/kumar/delete-today/david-profile-pic.jpeg");
         david.setBirthday("12-31");
         david.setSignificantDate("12-31");
+        david.setCompany("Microsoft");
+        david.setJobTitle("Senior Technical Architect");
+
         result = contactManager.addContact(david);
+
         LOGGER.info(result.toString());
         LOGGER.info(result.getBirthday());
         LOGGER.info(result.getProcessedBirthday()
