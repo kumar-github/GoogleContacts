@@ -30,6 +30,7 @@ public class ContactManager {
     private static final int            ZERO                        = 0;
     private static       ContactManager INSTANCE                    = null;
     private final        ContactUtil    contactUtil                 = ContactUtil.getInstance();
+    private final        AddressUtil    addressUtil                 = AddressUtil.getInstance();
     private              String         contactsFilePath;
     private              List<Contact>  contacts;
 
@@ -67,6 +68,7 @@ public class ContactManager {
         if (contact.getId() != 0) {
             throw new IllegalArgumentException("New contact should not have ID set.");
         }
+
         int id = contactUtil.generateNewContactId();
         contact.setId(id);
 
@@ -75,6 +77,12 @@ public class ContactManager {
 
         final LocalDate processedBirthday = processBirthdayDate(contact);
         contact.setProcessedBirthday(processedBirthday);
+
+        if (addressAvailable(contact)) {
+            final int addressId = addressUtil.generateNewAddressId();
+            contact.getAddress()
+                   .setId(addressId);
+        }
 
         contacts.add(contact);
         LOGGER.log(Level.INFO, "New Contact with id {0} created successfully.", new Object[]{ id });
@@ -224,5 +232,9 @@ public class ContactManager {
     private boolean birthdayAvailable(Contact contact) {
         return contact.getBirthday() != null && !contact.getBirthday()
                                                         .isBlank();
+    }
+
+    private boolean addressAvailable(final Contact contact) {
+        return contact.getAddress() != null;
     }
 }

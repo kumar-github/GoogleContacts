@@ -1,5 +1,6 @@
 package tech.badprogrammer;
 
+import tech.badprogrammer.model.Address;
 import tech.badprogrammer.model.Contact;
 import tech.badprogrammer.util.ContactManager;
 
@@ -31,7 +32,17 @@ public class Application {
         john.setNotes("This is a note");
         john.setProfilePicture("/Users/kumar/delete-today/john-profile-pic.jpg");
         john.setBirthday("03-25-1980");
+
+        final Address johnAddress = new Address();
+        johnAddress.setStreet("John's Street");
+        johnAddress.setCity("John's City");
+        johnAddress.setZipcode("101010");
+        johnAddress.setState("John's State");
+        johnAddress.setCountry("John's Country");
+        john.setAddress(johnAddress);
+
         result = contactManager.addContact(john);
+
         LOGGER.info(result.toString());
         LOGGER.info(result.getBirthday());
         LOGGER.info(result.getProcessedBirthday()
@@ -47,7 +58,17 @@ public class Application {
         marius.setNotes("This is a note");
         marius.setProfilePicture("/Users/kumar/delete-today/marius-profile-pic.jpg");
         marius.setBirthday("04-15-1970");
+
+        final Address mariusAddress = new Address();
+        mariusAddress.setStreet("Marius's Street");
+        mariusAddress.setCity("Marius's City");
+        mariusAddress.setZipcode("202020");
+        mariusAddress.setState("Marius's State");
+        mariusAddress.setCountry("Marius's Country");
+        marius.setAddress(mariusAddress);
+
         result = contactManager.addContact(marius);
+
         LOGGER.info(result.toString());
         LOGGER.info(result.getBirthday());
         LOGGER.info(result.getProcessedBirthday()

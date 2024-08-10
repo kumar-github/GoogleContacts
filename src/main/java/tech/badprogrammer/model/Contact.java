@@ -19,6 +19,7 @@ public class Contact implements Serializable {
     private String    processedProfilePicture;
     // MM-dd-yyyy
     private LocalDate processedBirthday;
+    private Address   address;
 
     public Contact() {
     }
@@ -119,8 +120,16 @@ public class Contact implements Serializable {
         this.processedBirthday = processedBirthday;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(final Address address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
-        return String.format("%d, %s, %s, %s %s", id, firstName, lastName, phone, label);
+        return String.format("%d, %s, %s, %s %s, %s", id, firstName, lastName, phone, label, address);
     }
 }
