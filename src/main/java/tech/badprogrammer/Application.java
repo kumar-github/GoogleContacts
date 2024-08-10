@@ -28,7 +28,7 @@ public class Application {
         john.setLastName("Doe");
         john.setPhone(ImmutablePair.of("+910000000000", "Work"));
         john.setLabel("Work");
-        john.setEmail("john@doe.com");
+        john.setEmail(ImmutablePair.of("john@doe.com", "Personal"));
         john.setWebsite("www.johndoe.com");
         john.setNotes("This is a note");
         john.setProfilePicture("/Users/kumar/delete-today/john-profile-pic.jpg");
@@ -61,7 +61,7 @@ public class Application {
         marius.setLastName("Filip");
         marius.setPhone(ImmutablePair.of("+911111111111", "Mobile"));
         marius.setLabel("Friends");
-        marius.setEmail("marius@filip.com");
+        marius.setEmail(ImmutablePair.of("marius@filip.com", "Work"));
         marius.setWebsite("www.mariusfilip.com");
         marius.setNotes("This is a note");
         marius.setProfilePicture("/Users/kumar/delete-today/marius-profile-pic.jpg");
@@ -94,7 +94,7 @@ public class Application {
         david.setLastName("Allen");
         david.setPhone(ImmutablePair.of("+912222222222", null));
         david.setLabel("Gym");
-        david.setEmail("david@allen.com");
+        david.setEmail(ImmutablePair.of("david@allen.com", "Work"));
         david.setWebsite("www.davidallen.com");
         david.setNotes("This is a note");
         david.setProfilePicture("/Users/kumar/delete-today/david-profile-pic.jpeg");
@@ -119,6 +119,7 @@ public class Application {
         chris.setLastName("Wayne");
         chris.setPhone(ImmutablePair.of("+913333333333", null));
         chris.setLabel("Work");
+        chris.setEmail(ImmutablePair.of("chris@wayne.com", null));
         chris.setBirthday("01-29");
         chris.setSignificantDate("01-29");
         result = contactManager.addContact(chris);
@@ -134,6 +135,7 @@ public class Application {
         bruce.setFirstName("Bruce");
         bruce.setLastName("Wayne");
         bruce.setPhone(ImmutablePair.of("+914444444444", ""));
+        bruce.setEmail(ImmutablePair.of("bruce@wayne.com", ""));
         bruce.setLabel("Gym");
         LOGGER.info(contactManager.addContact(bruce)
                                   .toString());

@@ -12,7 +12,7 @@ public class Contact implements Serializable {
     private String               lastName;
     private Pair<String, String> phone;
     private String               label;
-    private String               email;
+    private Pair<String, String> email;
     private String               website;
     private String               notes;
 
@@ -77,11 +77,11 @@ public class Contact implements Serializable {
         this.label = label;
     }
 
-    public String getEmail() {
+    public Pair<String, String> getEmail() {
         return email;
     }
 
-    public void setEmail(final String email) {
+    public void setEmail(final Pair<String, String> email) {
         this.email = email;
     }
 
@@ -183,6 +183,6 @@ public class Contact implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("%d, %s, %s, %s %s, %s", id, firstName, lastName, phone, label, address);
+        return String.format("%d, %s, %s, %s %s, %s", id, firstName, lastName, phone, email, label, address);
     }
 }
