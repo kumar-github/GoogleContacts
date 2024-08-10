@@ -44,7 +44,7 @@ public class Application {
         johnAddress.setZipcode("101010");
         johnAddress.setState("John's State");
         johnAddress.setCountry("John's Country");
-        john.setAddress(johnAddress);
+        john.setAddress(ImmutablePair.of(johnAddress, "Home"));
 
         result = contactManager.addContact(john);
 
@@ -77,7 +77,7 @@ public class Application {
         mariusAddress.setZipcode("202020");
         mariusAddress.setState("Marius's State");
         mariusAddress.setCountry("Marius's Country");
-        marius.setAddress(mariusAddress);
+        marius.setAddress(ImmutablePair.of(mariusAddress, "Work"));
 
         result = contactManager.addContact(marius);
 

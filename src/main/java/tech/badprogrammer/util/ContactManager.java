@@ -81,6 +81,7 @@ public class ContactManager {
         if (addressAvailable(contact)) {
             final int addressId = addressUtil.generateNewAddressId();
             contact.getAddress()
+                   .getLeft()
                    .setId(addressId);
         }
 

@@ -7,32 +7,26 @@ import java.time.LocalDate;
 
 public class Contact implements Serializable {
 
-    private int                  id;
-    private String               firstName;
-    private String               lastName;
-    private Pair<String, String> phone;
-    private String               label;
-    private Pair<String, String> email;
-    private String               website;
-    private String               notes;
-
-    private String profilePicture;
-    private String processedProfilePicture;
-
+    private int                   id;
+    private String                firstName;
+    private String                lastName;
+    private Pair<String, String>  phone;
+    private String                label;
+    private Pair<String, String>  email;
+    private String                website;
+    private String                notes;
+    private String                profilePicture;
+    private String                processedProfilePicture;
     // MM-dd or MM-dd-yyyy
-    private String    birthday;
+    private String                birthday;
     // MM-dd-yyyy
-    private LocalDate processedBirthday;
-
-    private Address address;
-
-    private String    significantDate;
-    private LocalDate processedSignificantDate;
-
-    private String company;
-    private String jobTitle;
-
-    private String customField;
+    private LocalDate             processedBirthday;
+    private Pair<Address, String> address;
+    private String                significantDate;
+    private LocalDate             processedSignificantDate;
+    private String                company;
+    private String                jobTitle;
+    private String                customField;
 
     public Contact() {
     }
@@ -133,11 +127,11 @@ public class Contact implements Serializable {
         this.processedBirthday = processedBirthday;
     }
 
-    public Address getAddress() {
+    public Pair<Address, String> getAddress() {
         return address;
     }
 
-    public void setAddress(final Address address) {
+    public void setAddress(final Pair<Address, String> address) {
         this.address = address;
     }
 
@@ -183,6 +177,6 @@ public class Contact implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("%d, %s, %s, %s %s, %s", id, firstName, lastName, phone, email, label, address);
+        return String.format("%d, %s, %s, %s %s, %s, %s", id, firstName, lastName, phone, email, label, address);
     }
 }
