@@ -7,26 +7,26 @@ import java.time.LocalDate;
 
 public class Contact implements Serializable {
 
-    private int                   id;
-    private String                firstName;
-    private String                lastName;
-    private Pair<String, String>  phone;
-    private String                label;
-    private Pair<String, String>  email;
-    private String                website;
-    private String                notes;
-    private String                profilePicture;
-    private String                processedProfilePicture;
+    private int                     id;
+    private String                  firstName;
+    private String                  lastName;
+    private Pair<String, String>    phone;
+    private String                  label;
+    private Pair<String, String>    email;
+    private Pair<String, String>    website;
+    private String                  notes;
+    private String                  profilePicture;
+    private String                  processedProfilePicture;
     // MM-dd or MM-dd-yyyy
-    private String                birthday;
+    private String                  birthday;
     // MM-dd-yyyy
-    private LocalDate             processedBirthday;
-    private Pair<Address, String> address;
-    private String                significantDate;
-    private LocalDate             processedSignificantDate;
-    private String                company;
-    private String                jobTitle;
-    private String                customField;
+    private LocalDate               processedBirthday;
+    private Pair<Address, String>   address;
+    private Pair<String, String>    significantDate;
+    private Pair<LocalDate, String> processedSignificantDate;
+    private String                  company;
+    private String                  jobTitle;
+    private Pair<String, String>    customField;
 
     public Contact() {
     }
@@ -79,11 +79,11 @@ public class Contact implements Serializable {
         this.email = email;
     }
 
-    public String getWebsite() {
+    public Pair<String, String> getWebsite() {
         return website;
     }
 
-    public void setWebsite(final String website) {
+    public void setWebsite(final Pair<String, String> website) {
         this.website = website;
     }
 
@@ -135,19 +135,19 @@ public class Contact implements Serializable {
         this.address = address;
     }
 
-    public String getSignificantDate() {
+    public Pair<String, String> getSignificantDate() {
         return significantDate;
     }
 
-    public void setSignificantDate(final String significantDate) {
+    public void setSignificantDate(final Pair<String, String> significantDate) {
         this.significantDate = significantDate;
     }
 
-    public LocalDate getProcessedSignificantDate() {
+    public Pair<LocalDate, String> getProcessedSignificantDate() {
         return processedSignificantDate;
     }
 
-    public void setProcessedSignificantDate(final LocalDate processedSignificantDate) {
+    public void setProcessedSignificantDate(final Pair<LocalDate, String> processedSignificantDate) {
         this.processedSignificantDate = processedSignificantDate;
     }
 
@@ -167,11 +167,11 @@ public class Contact implements Serializable {
         this.jobTitle = jobTitle;
     }
 
-    public String getCustomField() {
+    public Pair<String, String> getCustomField() {
         return customField;
     }
 
-    public void setCustomField(final String customField) {
+    public void setCustomField(final Pair<String, String> customField) {
         this.customField = customField;
     }
 

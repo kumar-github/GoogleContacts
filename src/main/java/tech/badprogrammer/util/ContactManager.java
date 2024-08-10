@@ -1,5 +1,6 @@
 package tech.badprogrammer.util;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import tech.badprogrammer.model.Contact;
 
 import java.io.File;
@@ -75,8 +76,12 @@ public class ContactManager {
         final LocalDate processedBirthday = processBirthdayDate(contact);
         contact.setProcessedBirthday(processedBirthday);
 
-        final LocalDate processedSignificantDate = processSignificantDate(contact);
-        contact.setProcessedSignificantDate(processedSignificantDate);
+        if (significantDateAvailable(contact)) {
+            final String label = sanitizeLabel(contact.getSignificantDate()
+                                                      .getRight());
+            final LocalDate processedSignificantDate = processSignificantDate(contact);
+            contact.setProcessedSignificantDate(ImmutablePair.of(processedSignificantDate, label));
+        }
 
         if (addressAvailable(contact)) {
             final int addressId = addressUtil.generateNewAddressId();
@@ -227,8 +232,9 @@ public class ContactManager {
         if (!significantDateAvailable(contact)) {
             return null;
         }
-        final DateTimeFormatter formatter                = contactUtil.dateWithOrWithoutYearFormatter();
-        final LocalDate         processedSignificantDate = LocalDate.parse(contact.getSignificantDate(), formatter);
+        final DateTimeFormatter formatter = contactUtil.dateWithOrWithoutYearFormatter();
+        final LocalDate processedSignificantDate = LocalDate.parse(contact.getSignificantDate()
+                                                                          .getLeft(), formatter);
         return processedSignificantDate;
     }
 
@@ -248,6 +254,11 @@ public class ContactManager {
 
     private boolean significantDateAvailable(final Contact contact) {
         return contact.getSignificantDate() != null && !contact.getSignificantDate()
+                                                               .getLeft()
                                                                .isBlank();
+    }
+
+    private String sanitizeLabel(String label) {
+        return label == null || label.isBlank() ? null : label;
     }
 }

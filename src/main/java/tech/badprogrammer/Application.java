@@ -29,14 +29,14 @@ public class Application {
         john.setPhone(ImmutablePair.of("+910000000000", "Work"));
         john.setLabel("Work");
         john.setEmail(ImmutablePair.of("john@doe.com", "Personal"));
-        john.setWebsite("www.johndoe.com");
+        john.setWebsite(ImmutablePair.of("www.johndoe.com", "Personal"));
         john.setNotes("This is a note");
         john.setProfilePicture("/Users/kumar/delete-today/john-profile-pic.jpg");
         john.setBirthday("03-25-1980");
-        john.setSignificantDate("03-25-1980");
+        john.setSignificantDate(ImmutablePair.of("03-25-1980", "Wedding Day"));
         john.setCompany("Amphora");
         john.setJobTitle("Software Engineer");
-        john.setCustomField("Some custom value");
+        john.setCustomField(ImmutablePair.of("ABCD1234", "PAN"));
 
         final Address johnAddress = new Address();
         johnAddress.setStreet("John's Street");
@@ -52,7 +52,8 @@ public class Application {
         LOGGER.info(result.getBirthday());
         LOGGER.info(result.getProcessedBirthday()
                           .toString());
-        LOGGER.info(result.getSignificantDate());
+        LOGGER.info(result.getSignificantDate()
+                          .toString());
         LOGGER.info(result.getProcessedSignificantDate()
                           .toString());
 
@@ -62,14 +63,14 @@ public class Application {
         marius.setPhone(ImmutablePair.of("+911111111111", "Mobile"));
         marius.setLabel("Friends");
         marius.setEmail(ImmutablePair.of("marius@filip.com", "Work"));
-        marius.setWebsite("www.mariusfilip.com");
+        marius.setWebsite(ImmutablePair.of("www.mariusfilip.com", "Work"));
         marius.setNotes("This is a note");
         marius.setProfilePicture("/Users/kumar/delete-today/marius-profile-pic.jpg");
         marius.setBirthday("04-15-1970");
-        marius.setSignificantDate("04-15-1970");
+        marius.setSignificantDate(ImmutablePair.of("04-15-1970", "Mother's Birthday"));
         marius.setCompany("HCL");
         marius.setJobTitle("Senior Software Engineer");
-        marius.setCustomField("Some other custom value");
+        marius.setCustomField(ImmutablePair.of("XYZ456AB", "License"));
 
         final Address mariusAddress = new Address();
         mariusAddress.setStreet("Marius's Street");
@@ -85,7 +86,8 @@ public class Application {
         LOGGER.info(result.getBirthday());
         LOGGER.info(result.getProcessedBirthday()
                           .toString());
-        LOGGER.info(result.getSignificantDate());
+        LOGGER.info(result.getSignificantDate()
+                          .toString());
         LOGGER.info(result.getProcessedSignificantDate()
                           .toString());
 
@@ -95,14 +97,14 @@ public class Application {
         david.setPhone(ImmutablePair.of("+912222222222", null));
         david.setLabel("Gym");
         david.setEmail(ImmutablePair.of("david@allen.com", "Work"));
-        david.setWebsite("www.davidallen.com");
+        david.setWebsite(ImmutablePair.of("www.davidallen.com", null));
         david.setNotes("This is a note");
         david.setProfilePicture("/Users/kumar/delete-today/david-profile-pic.jpeg");
         david.setBirthday("12-31");
-        david.setSignificantDate("12-31");
+        david.setSignificantDate(ImmutablePair.of("12-31", "Anniversary"));
         david.setCompany("Microsoft");
         david.setJobTitle("Senior Technical Architect");
-        david.setCustomField("Nothing");
+        david.setCustomField(ImmutablePair.of("Nothing", null));
 
         result = contactManager.addContact(david);
 
@@ -110,7 +112,8 @@ public class Application {
         LOGGER.info(result.getBirthday());
         LOGGER.info(result.getProcessedBirthday()
                           .toString());
-        LOGGER.info(result.getSignificantDate());
+        LOGGER.info(result.getSignificantDate()
+                          .toString());
         LOGGER.info(result.getProcessedSignificantDate()
                           .toString());
 
@@ -121,13 +124,14 @@ public class Application {
         chris.setLabel("Work");
         chris.setEmail(ImmutablePair.of("chris@wayne.com", null));
         chris.setBirthday("01-29");
-        chris.setSignificantDate("01-29");
+        chris.setSignificantDate(ImmutablePair.of("01-29", null));
         result = contactManager.addContact(chris);
         LOGGER.info(result.toString());
         LOGGER.info(result.getBirthday());
         LOGGER.info(result.getProcessedBirthday()
                           .toString());
-        LOGGER.info(result.getSignificantDate());
+        LOGGER.info(result.getSignificantDate()
+                          .toString());
         LOGGER.info(result.getProcessedSignificantDate()
                           .toString());
 
@@ -136,9 +140,15 @@ public class Application {
         bruce.setLastName("Wayne");
         bruce.setPhone(ImmutablePair.of("+914444444444", ""));
         bruce.setEmail(ImmutablePair.of("bruce@wayne.com", ""));
+        bruce.setSignificantDate(ImmutablePair.of("03-31", ""));
         bruce.setLabel("Gym");
-        LOGGER.info(contactManager.addContact(bruce)
-                                  .toString());
+
+        result = contactManager.addContact(bruce);
+
+        LOGGER.info(result.getSignificantDate()
+                          .toString());
+        LOGGER.info(result.getProcessedSignificantDate()
+                          .toString());
 
         // should have 5 contacts
         LOGGER.info(contactManager.getAllContacts()
